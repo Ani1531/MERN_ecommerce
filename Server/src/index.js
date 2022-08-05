@@ -2,6 +2,7 @@ const express = require('express');
 const env = require('dotenv')
 const app = express();
 const bodyParser = require('body-parser')
+const mongoose = require("../dbConnection");
 
 env.config();
 
