@@ -1,5 +1,5 @@
 
-const User = require('../models/User');
+const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 
 exports.singup = (req, res,next)=>{
@@ -7,7 +7,7 @@ exports.singup = (req, res,next)=>{
      .exec((error,user)=>{
         if(user){
             return  res.status(400).json({
-                message : "User already registered",
+                message : "admin already registered",
             })
         }
         const {
@@ -25,6 +25,7 @@ exports.singup = (req, res,next)=>{
             password,
             username: Math.random().toString(),
             contactNumber,
+            role : 'admin'
         })
 
        newUser.save((error,data)=>{
@@ -35,7 +36,7 @@ exports.singup = (req, res,next)=>{
         }
         if(data){
             return res.status(201).json({
-                message: 'User registered sucessfulluy'
+                message: 'Admin registered sucessfulluy'
             })
         }
        })
@@ -47,7 +48,7 @@ exports.singin = (req, res,next)=>{
     .exec((error, user)=>{
         if(error) return res.status(400).json({error})
         if(user){
-            if(user.authenticate(req.body.password)){
+            if(user.authenticate(req.body.password) && user.role === 'admin'){
                 const  token = jwt.sign({ _id: user._id }, process.env.JWT_TOKEN,{expiresIn : '1h'});
                 const {_id,firstName,lastName,email, role,fullName} = user;
                 res.status(200).json({

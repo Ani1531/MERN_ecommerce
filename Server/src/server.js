@@ -6,12 +6,14 @@ const mongoose = require("../dbConnection");
 
 
 const UserRoutes = require('./routes/User')
+const AdminRoutes = require('./routes/admin/admin')
 
 env.config();
 
 app.use(bodyParser.json());
 
-app.use('/api',UserRoutes)
+app.use('/api',UserRoutes);
+app.use('/api',AdminRoutes);
 
 
 app.listen(process.env.PORT, ()=>{
