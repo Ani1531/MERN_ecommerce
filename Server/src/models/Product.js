@@ -16,6 +16,10 @@ const productSchame = new mongoose.Schema(
         type:Number,
         required:true,
       },
+      quantity:{
+        type:Number,
+        required:true,
+      },
       description:{
         type:String,
         required:true,
@@ -31,10 +35,11 @@ const productSchame = new mongoose.Schema(
             review: String
         }
       ],
-      category:{ type:mongoose.Schema.Types.ObjectId, ref: "Category"},
+      category:{ type:mongoose.Schema.Types.ObjectId, ref: "Category", required: true},
       createdBy:{
         type: mongoose.Schema.Types.ObjectId, ref: "User",
         UpdatedAt: Date,
+        required:true,
       }
     },
     { timestamps: true }
